@@ -1,0 +1,221 @@
+[TITLE]
+
+
+[JUNCTIONS]
+;ID              	Elev        	Demand      	Pattern         
+ 2               	90          	0           	                	;
+ 4               	90          	0           	                	;
+ 5               	90          	0           	                	;
+ 9               	93          	1           	6               	;
+ 10              	80          	1           	7               	;
+ 8               	100         	0           	                	;
+ 11              	120         	0           	                	;
+ 12              	120         	0           	                	;
+
+[RESERVOIRS]
+;ID              	Head        	Pattern         
+ 1               	90          	                	;
+
+[TANKS]
+;ID              	Elevation   	InitLevel   	MinLevel    	MaxLevel    	Diameter    	MinVol      	VolCurve        	Overflow
+ 6               	100         	5           	5           	16.75       	17          	0           	                	;
+ 7               	120         	0.635       	0.634       	6.34        	6.34        	0           	                	;
+ 3               	90          	0           	0           	1.6         	20          	0           	                	;
+
+[PIPES]
+;ID              	Node1           	Node2           	Length      	Diameter    	Roughness   	MinorLoss   	Status
+ 7               	4               	6               	200         	250         	0.019       	0           	Open  	;
+ 8               	5               	7               	200         	250         	0.019       	0           	Open  	;
+ 12              	6               	9               	1000        	290         	0.019       	0           	Open  	;
+ 13              	7               	9               	1000        	290         	0.019       	0           	Open  	;
+ 14              	9               	10              	1000        	290         	0.019       	0           	Open  	;
+ 10              	8               	7               	100         	100         	0.025       	0           	Open  	;
+ 6               	2               	3               	150         	200         	0.020       	0           	Open  	;
+ 15              	11              	6               	99.9        	100         	0.025       	0           	Open  	;
+ 16              	7               	12              	0.1         	100         	0.025       	0           	Open  	;
+
+[PUMPS]
+;ID              	Node1           	Node2           	Parameters
+ 1               	1               	2               	HEAD BombasCaptacao	;
+ 2               	1               	2               	HEAD BombasCaptacao	;
+ 9               	6               	8               	HEAD BombaTransferencia	;
+ 3               	3               	4               	HEAD BombasElevacao	;
+ 4               	3               	4               	HEAD BombasElevacao	;
+ 5               	3               	5               	HEAD BombaResElevado	;
+
+[VALVES]
+;ID              	Node1           	Node2           	Diameter    	Type	Setting     	MinorLoss   
+ 11              	12              	11              	100         	FCV 	25          	0           	;
+
+[TAGS]
+
+[DEMANDS]
+;Junction        	Demand      	Pattern         	Category
+
+[STATUS]
+;ID              	Status/Setting
+ 11              	Open
+
+[PATTERNS]
+;ID              	Multipliers
+;Fator multiplicativo referente a demanda do no 9
+ 6               	50          	80          	90          	100         	100         	130         
+ 6               	150         	180         	180         	190         	200         	200         
+ 6               	170         	150         	140         	160         	170         	190         
+ 6               	270         	265         	285         	180         	190         	100         
+;Fator multiplicativo referente a demanda do no 10
+ 7              	20          	20          	25          	40          	45          	35          
+ 7              	40          	35          	40          	30          	40          	45          
+ 7              	35          	25          	30          	40          	50          	45          
+ 7              	63          	65          	68          	30          	40          	30          
+;Preco da energia kWh
+ PrecokWh        	0.20        	0.20        	0.20        	0.20        	0.20        	0.20        
+ PrecokWh        	0.20        	0.20        	0.20        	0.20        	0.20        	0.20        
+ PrecokWh        	0.20        	0.20        	0.20        	0.20        	0.20        	0.20        
+ PrecokWh        	0.60        	0.60        	0.60        	0.20        	0.20        	0.20        
+
+[CURVES]
+;ID              	X-Value     	Y-Value
+;PUMP: BOMBA: Curva das bombas de captacao
+ BombasCaptacao  	250         	4           
+;PUMP: BOMBA: Curva das 2 bombas de elevacao reservatorio apoiado
+ BombasElevacao  	150         	21          
+;PUMP: BOMBA: Curva da bomba de transferencia entre os reservatorios
+ BombaTransferencia	50              4         
+;PUMP: BOMBA: Curva da bomba de elevacao reservatorio elevado
+ BombaResElevado 	150         	35          
+
+[RULES]
+
+[ENERGY]
+ Global Efficiency  	60
+ Global Price       	0
+ Demand Charge      	0
+ Pump 	1               	Price     	1
+ Pump 	1               	Pattern   	PrecokWh
+ Pump 	2               	Price     	1
+ Pump 	2               	Pattern   	PrecokWh
+ Pump 	9               	Price     	1
+ Pump 	9               	Pattern   	PrecokWh
+ Pump 	3               	Price     	1
+ Pump 	3               	Pattern   	PrecokWh
+ Pump 	4               	Price     	1
+ Pump 	4               	Pattern   	PrecokWh
+ Pump 	5               	Price     	1
+ Pump 	5               	Pattern   	PrecokWh
+
+[EMITTERS]
+;Junction        	Coefficient
+
+[QUALITY]
+;Node            	InitQual
+
+[SOURCES]
+;Node            	Type        	Quality     	Pattern
+
+[REACTIONS]
+;Type     	Pipe/Tank       	Coefficient
+
+
+[REACTIONS]
+ Order Bulk            	1
+ Order Tank            	1
+ Order Wall            	1
+ Global Bulk           	0
+ Global Wall           	0
+ Limiting Potential    	0
+ Roughness Correlation 	0
+
+[MIXING]
+;Tank            	Model
+
+[TIMES]
+ Duration           	24:00 
+ Hydraulic Timestep 	1:00 
+ Quality Timestep   	0:05 
+ Pattern Timestep   	1:00 
+ Pattern Start      	0:00 
+ Report Timestep    	1:00 
+ Report Start       	0:00 
+ Start ClockTime    	0:00
+ Statistic          	NONE
+
+[REPORT]
+ Status             	No
+ Summary            	No
+ Page               	0
+
+[OPTIONS]
+ Units              	CMH
+ Headloss           	D-W
+ Specific Gravity   	1
+ Viscosity          	1
+ Trials             	40
+ Accuracy           	0.001
+ CHECKFREQ          	2
+ MAXCHECK           	10
+ DAMPLIMIT          	0
+ Unbalanced         	Continue 10
+ Pattern            	1
+ Demand Multiplier  	1.0
+ Emitter Exponent   	0.5
+ Quality            	None mg/L
+ Diffusivity        	1
+ Tolerance          	0.01
+
+[COORDINATES]
+;Node            	X-Coord           	Y-Coord
+2               	1386.270          	4845.220          
+4               	3400.000          	4850.000          
+5               	2477.610          	4143.730          
+9               	7588.930          	5230.570          
+10              	8409.090          	3830.210          
+8               	6462.110          	6371.150          
+11              	6015.000          	6860.000          
+12              	6525.000          	7185.000          
+1               	550.000           	4850.000          
+6               	5191.040          	6376.810          
+7               	7025.000          	7535.000          
+3               	2473.870          	4843.210          
+
+[VERTICES]
+;Link            	X-Coord           	Y-Coord
+8               	3268.720          	4144.390          
+8               	6831.010          	6397.500          
+12              	7364.950          	5533.600          
+13              	7028.640          	6357.980          
+13              	7358.020          	6357.980          
+14              	8194.990          	5138.340          
+1               	835.560           	4852.940          
+1               	833.870           	5108.480          
+1               	1301.070          	5108.480          
+1               	1298.790          	4845.220          
+2               	835.560           	4852.940          
+2               	833.870           	4588.650          
+2               	1301.070          	4582.070          
+2               	1298.790          	4845.220          
+3               	2783.250          	4843.740          
+3               	2786.100          	5100.180          
+3               	3226.980          	5100.180          
+3               	3224.350          	4847.800          
+4               	2783.250          	4843.740          
+4               	2786.100          	4606.660          
+4               	3226.980          	4606.660          
+4               	3224.350          	4847.800          
+
+[LABELS]
+;X-Coord             Y-Coord             Label & Anchor Node
+4077.390          	7965.360          	"TUBULACAO NOVA"	
+
+[BACKDROP]
+  DIMENSIONS  	0.000             	0.000             	10000.000         	10000.000         
+ UNITS          	None
+ FILE           	
+ OFFSET         	0.00            	0.00    
+
+[CONTROLS] 
+[END]
+
+
+
+
