@@ -1,13 +1,13 @@
 [TITLE]
-
+TUBULACAO ANTIGA E RENDIMENTO 60
 
 [JUNCTIONS]
 ;ID              	Elev        	Demand      	Pattern         
  2               	90          	0           	                	;
  4               	90          	0           	                	;
  5               	90          	0           	                	;
- 9               	93          	1           	Demandanó9      	;
- 10              	80          	1           	Demandanó10     	;
+ 9               	93          	1           	6      			;
+ 10              	80          	1           	7		     	;
  8               	100         	0           	                	;
  11              	120         	0           	                	;
  12              	120         	0           	                	;
@@ -24,23 +24,23 @@
 
 [PIPES]
 ;ID              	Node1           	Node2           	Length      	Diameter    	Roughness   	MinorLoss   	Status
- 7               	4               	6               	200         	250         	0.019       	0           	Open  	;
- 8               	5               	7               	200         	250         	0.019       	0           	Open  	;
- 12              	6               	9               	1000        	290         	0.019       	0           	Open  	;
- 13              	7               	9               	1000        	290         	0.019       	0           	Open  	;
- 14              	9               	10              	1000        	290         	0.019       	0           	Open  	;
- 10              	8               	7               	100         	100         	0.025       	0           	Open  	;
- 6               	2               	3               	150         	200         	0.020       	0           	Open  	;
- 15              	11              	6               	99.9        	100         	0.025       	0           	Open  	;
- 16              	7               	12              	0.1         	100         	0.025       	0           	Open  	;
+ 7               	4               	6               	200         	250         	0.048       	0           	Open  	;
+ 8               	5               	7               	200         	250         	0.048       	0           	Open  	;
+ 12              	6               	9               	1000        	290         	0.048       	0           	Open  	;
+ 13              	7               	9               	1000        	290         	0.046       	0           	Open  	;
+ 14              	9               	10              	1000        	290         	0.046       	0           	Open  	;
+ 10              	8               	7               	100         	100         	0.072       	0           	Open  	;
+ 6               	2               	3               	150         	200         	0.054       	0           	Open  	;
+ 15              	11              	6               	99.9        	100         	0.072       	0           	Open  	;
+ 16              	7               	12              	0.1         	100         	0.072       	0           	Open  	;
 
 [PUMPS]
 ;ID              	Node1           	Node2           	Parameters
- 1               	1               	2               	HEAD BombasCaptação	;
- 2               	1               	2               	HEAD BombasCaptação	;
+ 1               	1               	2               	HEAD BombasCaptacao	;
+ 2               	1               	2               	HEAD BombasCaptacao	;
  9               	6               	8               	HEAD BombaTransferencia	;
- 3               	3               	4               	HEAD BombasElevação	;
- 4               	3               	4               	HEAD BombasElevação	;
+ 3               	3               	4               	HEAD BombasElevacao	;
+ 4               	3               	4               	HEAD BombasElevacao	;
  5               	3               	5               	HEAD BombaResElevado	;
 
 [VALVES]
@@ -54,59 +54,38 @@
 
 [STATUS]
 ;ID              	Status/Setting
+ 9               	Closed	;
 
 [PATTERNS]
 ;ID              	Multipliers
-;Fator multiplicativo referente a demanda do nó 9
- Demandanó9      	50          	80          	90          	100         	100         	130         
- Demandanó9      	150         	180         	180         	190         	200         	200         
- Demandanó9      	170         	150         	140         	160         	170         	190         
- Demandanó9      	270         	265         	285         	180         	190         	100         
-;Fator multiplicativo referente a demanda do nó 10
- Demandanó10     	20          	20          	25          	40          	45          	35          
- Demandanó10     	40          	35          	40          	30          	40          	45          
- Demandanó10     	35          	25          	30          	40          	50          	45          
- Demandanó10     	63          	65          	68          	30          	40          	30          
-;Preço da energia kWh
- PreçokWh        	0.20        	0.20        	0.20        	0.20        	0.20        	0.20        
- PreçokWh        	0.20        	0.20        	0.20        	0.20        	0.20        	0.20        
- PreçokWh        	0.20        	0.20        	0.20        	0.20        	0.20        	0.20        
- PreçokWh        	0.60        	0.60        	0.60        	0.20        	0.20        	0.20        
+;Fator multiplicativo referente a demanda do no 9
+ 6      	50          	80          	90          	100         	100         	130         
+ 6      	150         	180         	180         	190         	200         	200         
+ 6      	170         	150         	140         	160         	170         	190         
+ 6      	270         	265         	285         	180         	190         	100         
+;Fator multiplicativo referente a demanda do no 10
+ 7     	20          	20          	25          	40          	45          	35          
+ 7     	40          	35          	40          	30          	40          	45          
+ 7     	35          	25          	30          	40          	50          	45          
+ 7     	63          	65          	68          	30          	40          	30          
+;Preco da energia kWh
+ PrecokWh        	0.20        	0.20        	0.20        	0.20        	0.20        	0.20        
+ PrecokWh        	0.20        	0.20        	0.20        	0.20        	0.20        	0.20        
+ PrecokWh        	0.20        	0.20        	0.20        	0.20        	0.20        	0.20        
+ PrecokWh        	0.60        	0.60        	0.60        	0.20        	0.20        	0.20        
 
 [CURVES]
 ;ID              	X-Value     	Y-Value
-;BOMBA: Curva das bombas de captação
- BombasCaptação  	250         	4           
-;BOMBA: Curva das 2 bombas de elevação reservatório apoiado
- BombasElevação  	150         	21          
-;BOMBA: Curva da bomba de transferência entre os reservatórios
+;BOMBA: Curva das bombas de captacao
+ BombasCaptacao  	250         	4           
+;BOMBA: Curva das 2 bombas de elevacao reservatorio apoiado
+ BombasElevacao  	150         	21          
+;BOMBA: Curva da bomba de transferencia entre os reservatorios
  BombaTransferencia	50          	4           
-;BOMBA: Curva da bomba de elevação reservatório elevado
+;BOMBA: Curva da bomba de elevacao reservatorio elevado
  BombaResElevado 	150         	35          
 
 [CONTROLS]
-PUMP 1 CLOSED AT CLOCKTIME 5:30 PM
-PUMP 2 CLOSED AT CLOCKTIME 2 AM
-PUMP 3 CLOSED AT CLOCKTIME 6 PM
-PUMP 4 CLOSED AT CLOCKTIME 0 AM
-PUMP 4 OPEN AT CLOCKTIME 4 AM
-PUMP 4 CLOSED AT CLOCKTIME 3:55 PM
-PUMP 5 CLOSED AT CLOCKTIME 1:25 AM
-PUMP 5 OPEN AT CLOCKTIME 6 AM
-PUMP 5 CLOSED AT CLOCKTIME 7 AM
-PUMP 5 OPEN AT CLOCKTIME 11 AM
-PUMP 5 CLOSED AT CLOCKTIME 00:15 PM
-PUMP 5 OPEN AT CLOCKTIME 4 PM
-PUMP 5 CLOSED AT CLOCKTIME 6:08 PM
-PUMP 5 OPEN AT CLOCKTIME 9 PM
-PUMP 5 CLOSED AT CLOCKTIME 9:40 PM
-PUMP 9 CLOSED AT CLOCKTIME 0 AM
-LINK 16 CLOSED AT CLOCKTIME 0 AM
-LINK 16 OPEN AT CLOCKTIME 3 PM
-LINK 16 CLOSED AT CLOCKTIME 4:15 PM
-LINK 16 OPEN AT CLOCKTIME 5 PM
-LINK 16 CLOSED AT CLOCKTIME 6 PM
-
 
 [RULES]
 
@@ -115,17 +94,17 @@ LINK 16 CLOSED AT CLOCKTIME 6 PM
  Global Price       	0
  Demand Charge      	0
  Pump 	1               	Price     	1
- Pump 	1               	Pattern   	PreçokWh
+ Pump 	1               	Pattern   	PrecokWh
  Pump 	2               	Price     	1
- Pump 	2               	Pattern   	PreçokWh
+ Pump 	2               	Pattern   	PrecokWh
  Pump 	9               	Price     	1
- Pump 	9               	Pattern   	PreçokWh
+ Pump 	9               	Pattern   	PrecokWh
  Pump 	3               	Price     	1
- Pump 	3               	Pattern   	PreçokWh
+ Pump 	3               	Pattern   	PrecokWh
  Pump 	4               	Price     	1
- Pump 	4               	Pattern   	PreçokWh
+ Pump 	4               	Pattern   	PrecokWh
  Pump 	5               	Price     	1
- Pump 	5               	Pattern   	PreçokWh
+ Pump 	5               	Pattern   	PrecokWh
 
 [EMITTERS]
 ;Junction        	Coefficient
@@ -227,8 +206,7 @@ LINK 16 CLOSED AT CLOCKTIME 6 PM
  4               	3224.35         	4847.80         
 
 [LABELS]
-;X-Coord           Y-Coord          Label & Anchor Node
- 4077.39          7965.36          "TUBULAÇÃO NOVA"                 
+;X-Coord           Y-Coord          Label & Anchor Node             
 
 [BACKDROP]
  DIMENSIONS     	0.00            	0.00            	10000.00        	10000.00        
@@ -236,4 +214,57 @@ LINK 16 CLOSED AT CLOCKTIME 6 PM
  FILE           	
  OFFSET         	0.00            	0.00            
 
+[CONTROLS] 
+PUMP 1 CLOSED AT CLOCKTIME 03:00 AM
+PUMP 2 CLOSED AT CLOCKTIME 06:25 PM
+PUMP 3 CLOSED AT CLOCKTIME 05:07 PM
+PUMP 4 CLOSED AT CLOCKTIME 11:00 AM
+PUMP 5 CLOSED AT CLOCKTIME 02:00 AM
+PUMP 5 OPEN   AT CLOCKTIME 06:00 AM
+PUMP 5 CLOSED AT CLOCKTIME 07:42 AM
+PUMP 5 OPEN   AT CLOCKTIME 12:00 AM
+PUMP 5 CLOSED AT CLOCKTIME 01:30 PM
+PUMP 5 OPEN   AT CLOCKTIME 06:00 PM
+PUMP 5 CLOSED AT CLOCKTIME 07:22 PM
+PUMP 5 OPEN   AT CLOCKTIME 10:00 PM
+PUMP 5 CLOSED AT CLOCKTIME 10:40 PM
+LINK 16 CLOSED AT CLOCKTIME 01:00 AM
+
+[CONTROLS] 
+PUMP 1 CLOSED AT CLOCKTIME 03:00 AM
+PUMP 2 CLOSED AT CLOCKTIME 06:25 PM
+PUMP 3 CLOSED AT CLOCKTIME 05:07 PM
+PUMP 4 CLOSED AT CLOCKTIME 11:00 AM
+PUMP 5 CLOSED AT CLOCKTIME 02:00 AM
+PUMP 5 OPEN   AT CLOCKTIME 06:00 AM
+PUMP 5 CLOSED AT CLOCKTIME 07:42 AM
+PUMP 5 OPEN   AT CLOCKTIME 12:00 AM
+PUMP 5 CLOSED AT CLOCKTIME 01:30 PM
+PUMP 5 OPEN   AT CLOCKTIME 06:00 PM
+PUMP 5 CLOSED AT CLOCKTIME 07:22 PM
+PUMP 5 OPEN   AT CLOCKTIME 10:00 PM
+PUMP 5 CLOSED AT CLOCKTIME 10:40 PM
+LINK 16 CLOSED AT CLOCKTIME 01:00 AM
+[CONTROLS] 
+PUMP 1 CLOSED AT CLOCKTIME 03:25 AM
+PUMP 2 CLOSED AT CLOCKTIME 06:00 PM
+PUMP 3 CLOSED AT CLOCKTIME 03:58 PM
+PUMP 4 CLOSED AT CLOCKTIME 12:00 AM
+PUMP 5 CLOSED AT CLOCKTIME 02:28 AM
+PUMP 5 OPEN   AT CLOCKTIME 07:00 AM
+PUMP 5 CLOSED AT CLOCKTIME 08:18 AM
+PUMP 5 OPEN   AT CLOCKTIME 01:00 PM
+PUMP 5 CLOSED AT CLOCKTIME 01:52 PM
+PUMP 5 OPEN   AT CLOCKTIME 05:00 PM
+PUMP 5 CLOSED AT CLOCKTIME 07:06 PM
+PUMP 5 OPEN   AT CLOCKTIME 10:00 PM
+PUMP 5 CLOSED AT CLOCKTIME 10:40 PM
+LINK 16 CLOSED AT CLOCKTIME 01:00 AM
+LINK 16 OPEN   AT CLOCKTIME 05:00 PM
+LINK 16 CLOSED AT CLOCKTIME 05:59 PM
 [END]
+
+
+
+
+

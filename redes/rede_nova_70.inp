@@ -1,13 +1,13 @@
 [TITLE]
-
+TUBULACAO NOVA E RENDIMENTO 70
 
 [JUNCTIONS]
 ;ID              	Elev        	Demand      	Pattern         
  2               	90          	0           	                	;
  4               	90          	0           	                	;
  5               	90          	0           	                	;
- 9               	93          	1           	6               	;
- 10              	80          	1           	7               	;
+ 9               	93          	1           	6      			;
+ 10              	80          	1           	7		     	;
  8               	100         	0           	                	;
  11              	120         	0           	                	;
  12              	120         	0           	                	;
@@ -17,7 +17,7 @@
  1               	90          	                	;
 
 [TANKS]
-;ID              	Elevation   	InitLevel   	MinLevel    	MaxLevel    	Diameter    	MinVol      	VolCurve        	Overflow
+;ID              	Elevation   	InitLevel   	MinLevel    	MaxLevel    	Diameter    	MinVol      	VolCurve
  6               	100         	5           	5           	16.75       	17          	0           	                	;
  7               	120         	0.635       	0.634       	6.34        	6.34        	0           	                	;
  3               	90          	0           	0           	1.6         	20          	0           	                	;
@@ -54,21 +54,20 @@
 
 [STATUS]
 ;ID              	Status/Setting
- 9               	Closed
- 11              	Open
+ 9               	Closed ;
 
 [PATTERNS]
 ;ID              	Multipliers
 ;Fator multiplicativo referente a demanda do no 9
- 6               	50          	80          	90          	100         	100         	130         
- 6               	150         	180         	180         	190         	200         	200         
- 6               	170         	150         	140         	160         	170         	190         
- 6               	270         	265         	285         	180         	190         	100         
+ 6      	50          	80          	90          	100         	100         	130         
+ 6      	150         	180         	180         	190         	200         	200         
+ 6      	170         	150         	140         	160         	170         	190         
+ 6      	270         	265         	285         	180         	190         	100         
 ;Fator multiplicativo referente a demanda do no 10
- 7               	20          	20          	25          	40          	45          	35          
- 7               	40          	35          	40          	30          	40          	45          
- 7               	35          	25          	30          	40          	50          	45          
- 7               	63          	65          	68          	30          	40          	30          
+ 7     	20          	20          	25          	40          	45          	35          
+ 7     	40          	35          	40          	30          	40          	45          
+ 7     	35          	25          	30          	40          	50          	45          
+ 7     	63          	65          	68          	30          	40          	30          
 ;Preco da energia kWh
  PrecokWh        	0.20        	0.20        	0.20        	0.20        	0.20        	0.20        
  PrecokWh        	0.20        	0.20        	0.20        	0.20        	0.20        	0.20        
@@ -77,33 +76,21 @@
 
 [CURVES]
 ;ID              	X-Value     	Y-Value
-;PUMP: PUMP: BOMBA: Curva das bombas de captacao
+;BOMBA: Curva das bombas de captacao
  BombasCaptacao  	250         	4           
-;PUMP: PUMP: BOMBA: Curva das 2 bombas de elevacao reservatorio apoiado
+;BOMBA: Curva das 2 bombas de elevacao reservatorio apoiado
  BombasElevacao  	150         	21          
-;PUMP: PUMP: BOMBA: Curva da bomba de transferencia entre os reservatorios
+;BOMBA: Curva da bomba de transferencia entre os reservatorios
  BombaTransferencia	50          	4           
-;PUMP: PUMP: BOMBA: Curva da bomba de elevacao reservatorio elevado
+;BOMBA: Curva da bomba de elevacao reservatorio elevado
  BombaResElevado 	150         	35          
 
 [CONTROLS]
-PUMP 1 CLOSED AT CLOCKTIME 03:25 AM
-PUMP 2 CLOSED AT CLOCKTIME 06:00 PM
-PUMP 3 CLOSED AT CLOCKTIME 06:00 PM
-PUMP 4 CLOSED AT CLOCKTIME 03:54 PM
-PUMP 5 CLOSED AT CLOCKTIME 01:00 AM
-PUMP 5 OPEN   AT CLOCKTIME 11:00 PM
-PUMP 5 CLOSED AT CLOCKTIME 11:40 PM
-LINK 16 CLOSED AT CLOCKTIME 02:11 AM
-LINK 16 OPEN   AT CLOCKTIME 04:00 AM
-LINK 16 CLOSED AT CLOCKTIME 06:00 AM
-PUMP 9 CLOSED AT CLOCKTIME 07:55 PM
 
 [RULES]
 
-
 [ENERGY]
- Global Efficiency  	60
+ Global Efficiency  	70
  Global Price       	0
  Demand Charge      	0
  Pump 	1               	Price     	1
@@ -145,15 +132,15 @@ PUMP 9 CLOSED AT CLOCKTIME 07:55 PM
 ;Tank            	Model
 
 [TIMES]
- Duration           	24:00 
- Hydraulic Timestep 	1:00 
- Quality Timestep   	0:05 
- Pattern Timestep   	1:00 
- Pattern Start      	0:00 
- Report Timestep    	1:00 
- Report Start       	0:00 
+ Duration           	24:00
+ Hydraulic Timestep 	1:00
+ Quality Timestep   	0:05
+ Pattern Timestep   	1:00
+ Pattern Start      	0:00
+ Report Timestep    	1:00
+ Report Start       	0:00
  Start ClockTime    	0:00
- Statistic          	NONE
+ Statistic          	None
 
 [REPORT]
  Status             	No
@@ -179,53 +166,75 @@ PUMP 9 CLOSED AT CLOCKTIME 07:55 PM
  Tolerance          	0.01
 
 [COORDINATES]
-;Node            	X-Coord           	Y-Coord
-2               	1386.270          	4845.220          
-4               	3400.000          	4850.000          
-5               	2477.610          	4143.730          
-9               	7588.930          	5230.570          
-10              	8409.090          	3830.210          
-8               	6462.110          	6371.150          
-11              	6015.000          	6860.000          
-12              	6525.000          	7185.000          
-1               	550.000           	4850.000          
-6               	5191.040          	6376.810          
-7               	7025.000          	7535.000          
-3               	2473.870          	4843.210          
+;Node            	X-Coord         	Y-Coord
+ 2               	1386.27         	4845.22         
+ 4               	3400.00         	4850.00         
+ 5               	2477.61         	4143.73         
+ 9               	7588.93         	5230.57         
+ 10              	8409.09         	3830.21         
+ 8               	6462.11         	6371.15         
+ 11              	6015.00         	6860.00         
+ 12              	6525.00         	7185.00         
+ 1               	550.00          	4850.00         
+ 6               	5191.04         	6376.81         
+ 7               	7025.00         	7535.00         
+ 3               	2473.87         	4843.21         
 
 [VERTICES]
-;Link            	X-Coord           	Y-Coord
-8               	3268.720          	4144.390          
-8               	6831.010          	6397.500          
-12              	7364.950          	5533.600          
-13              	7028.640          	6357.980          
-13              	7358.020          	6357.980          
-14              	8194.990          	5138.340          
-1               	835.560           	4852.940          
-1               	833.870           	5108.480          
-1               	1301.070          	5108.480          
-1               	1298.790          	4845.220          
-2               	835.560           	4852.940          
-2               	833.870           	4588.650          
-2               	1301.070          	4582.070          
-2               	1298.790          	4845.220          
-3               	2783.250          	4843.740          
-3               	2786.100          	5100.180          
-3               	3226.980          	5100.180          
-3               	3224.350          	4847.800          
-4               	2783.250          	4843.740          
-4               	2786.100          	4606.660          
-4               	3226.980          	4606.660          
-4               	3224.350          	4847.800          
+;Link            	X-Coord         	Y-Coord
+ 8               	3268.72         	4144.39         
+ 8               	6831.01         	6397.50         
+ 12              	7364.95         	5533.60         
+ 13              	7028.64         	6357.98         
+ 13              	7358.02         	6357.98         
+ 14              	8194.99         	5138.34         
+ 1               	835.56          	4852.94         
+ 1               	833.87          	5108.48         
+ 1               	1301.07         	5108.48         
+ 1               	1298.79         	4845.22         
+ 2               	835.56          	4852.94         
+ 2               	833.87          	4588.65         
+ 2               	1301.07         	4582.07         
+ 2               	1298.79         	4845.22         
+ 3               	2783.25         	4843.74         
+ 3               	2786.10         	5100.18         
+ 3               	3226.98         	5100.18         
+ 3               	3224.35         	4847.80         
+ 4               	2783.25         	4843.74         
+ 4               	2786.10         	4606.66         
+ 4               	3226.98         	4606.66         
+ 4               	3224.35         	4847.80         
 
 [LABELS]
-;X-Coord             Y-Coord             Label & Anchor Node
-4077.390          	7965.360          	"TUBULACAO NOVA"	
+;X-Coord           Y-Coord          Label & Anchor Node           
 
 [BACKDROP]
-  DIMENSIONS  	0.000             	0.000             	10000.000         	10000.000         
+ DIMENSIONS     	0.00            	0.00            	10000.00        	10000.00        
  UNITS          	None
  FILE           	
  OFFSET         	0.00            	0.00            
 
+[CONTROLS] 
+PUMP 1 CLOSED AT CLOCKTIME 02:25 AM
+PUMP 2 CLOSED AT CLOCKTIME 07:00 PM
+PUMP 3 CLOSED AT CLOCKTIME 01:00 PM
+PUMP 4 CLOSED AT CLOCKTIME 02:58 PM
+PUMP 5 CLOSED AT CLOCKTIME 02:25 AM
+PUMP 5 OPEN   AT CLOCKTIME 06:00 AM
+PUMP 5 CLOSED AT CLOCKTIME 07:01 AM
+PUMP 5 OPEN   AT CLOCKTIME 12:00 AM
+PUMP 5 CLOSED AT CLOCKTIME 01:10 PM
+PUMP 5 OPEN   AT CLOCKTIME 05:00 PM
+PUMP 5 CLOSED AT CLOCKTIME 07:06 PM
+PUMP 5 OPEN   AT CLOCKTIME 10:00 PM
+PUMP 5 CLOSED AT CLOCKTIME 10:40 PM
+LINK 16 CLOSED AT CLOCKTIME 01:00 AM
+LINK 16 OPEN   AT CLOCKTIME 05:00 PM
+LINK 16 CLOSED AT CLOCKTIME 05:59 PM
 [END]
+
+
+
+
+
+

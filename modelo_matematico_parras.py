@@ -23,10 +23,10 @@ def info_adicional(tubulacao, demanda, taxa_dem, ultrapassagem, custo_acionament
     
     lista_eta = []
     
-    if tubulacao == 1:
+    if tubulacao == False:
         tipo_tubulacao = 'NOVA'
     else:
-        tipo_tubulacao = 'VELHA'
+        tipo_tubulacao = 'ANTIGA'
 
     D  = float(demanda)    
     td = float(taxa_dem)
@@ -41,8 +41,7 @@ def info_adicional(tubulacao, demanda, taxa_dem, ultrapassagem, custo_acionament
     
 #    print(tipo_tubulacao, D, td, u, ca, alfaMax, deltaMax, gamaMax, betaMax, lista_eta)
 
-def leitura_arquivo(nome_arq):
-    
+def leitura_arquivo(nome_arq):    
     global wn, rendimento_bomba, P, T, Nh, g, no_consumidor, reservatorios
     global nc, ne, nt, ns, id_superf, id_elevac, id_transf
     global nome_arquivo
@@ -533,9 +532,9 @@ def solucao_modelo():
     opt = SolverFactory("cplex")
     #opt = SolverFactory("gurobi")
     results = opt.solve(m)
-#   results.write()
     #results = opt.solve(m, tee=True)
     ''' Testes para ver resultado do modelo 
+    results.write()
     m.Phi.pprint()
     m.display()
     m.Phi.display()
@@ -550,7 +549,7 @@ def solucao_modelo():
     m.Cnt.pprint()
     ''' 
     # print(programacao_bombas.informacao(m, wn, T, nome_arquivo))
-    
+
     if(programacao_bombas.informacao(m, wn, T, nome_arquivo)):
         return True
     else:
@@ -559,5 +558,5 @@ def solucao_modelo():
 #  TESTES LOCAIS NO FONTE
 #       tubulação, demanda, td, ultrapassagem, ca, Amax, Dmax, Gmax, Bmax, link
 
-#info_adicional(0, '18989.00', '5.12', '0', '2.0', '2', '5', '5', '5', '3', '16')
-#leitura_arquivo('rede_status_ant.inp')
+#info_adicional(0, '82726', '5.12', '0', '2.0', '2', '5', '5', '5', '3', '16')
+#leitura_arquivo('rede.inp')

@@ -1,5 +1,8 @@
 import PySimpleGUI as sg
+from os import path
 import os.path
+import pathlib 
+import shutil
 import wntr
 import modelo_matematico_parras as modeloParras
 import executa_rede as simulacao
@@ -17,8 +20,8 @@ layout_busca = [
 
 layout_info = [
     [sg.Text('Tipo de Tubulação:', pad=(6)),
+     sg.Radio('Antiga', 'cano', key=('tubulacao'), pad=(6)),
      sg.Radio('Nova', 'cano', key=('tubulacao'), pad=(6)),
-     sg.Radio('Velha', 'cano', key=('tubulacao'), pad=(6)),
     ],
     [sg.Text('Demanda energética contratada por dia'),
      sg.Input(size=(7,15), key=('D'), pad=(6)),
@@ -65,16 +68,14 @@ layout_baixar_arq = [
 ]
 
 layout = [
-    [sg.Frame('Selecione o Arquivo INP'     , layout_busca      , visible=True , key=('busca'), size=(650, 60))],
-    [sg.Frame('Informações Adicionais'      , layout_info       , visible=False, key=('info'), size=(650, 320))],
-    [sg.Frame('Informações dos Componentes' , layout_rede       , visible=False, key=('rede'), size=(650, 90))],
-    [sg.Frame('Solução Viável Encontrada'   , layout_baixar_arq , visible=False, key=('solucao'), size=(450, 90))],
-    [sg.Button(' Sair ', key=('sair'), visible=False),
-     sg.Button(' Executar ', key=('executar'), visible=False),]
+    [sg.Frame('Selecione o Arquivo INP'     , layout_busca      , visible = True  , key=('busca')   , size=(650, 60))],
+    [sg.Frame('Informações Adicionais'      , layout_info       , visible = False , key=('info')    , size=(650, 320))],
+    [sg.Frame('Informações dos Componentes' , layout_rede       , visible = False , key=('rede')    , size=(650, 90))],
+    [sg.Frame('Solução Viável Encontrada'   , layout_baixar_arq , visible = False , key=('solucao') , size=(490, 90))],
+    [sg.Button(' Sair '                     , key=('sair')      , visible = False),
+     sg.Button(' Executar '                 , key=('executar')  , visible = False),]
 ]  
 
-
-#   Janela size=(600, 450)
 janela = sg.Window('Execução de Arquivo', layout, resizable=True)    
 
 #   Leitura do evento
@@ -88,16 +89,22 @@ def carrega_janela():
     janela.close()
         
 def processa_evento(evento, valor):
+    global novo_arq, wn
     nome_arq = valor['caminho']           
     if os.path.isfile(nome_arq):
-        wn = wntr.network.WaterNetworkModel(nome_arq)
+        print('')
     else:
         sg.Popup('Verifique se o caminho e o nome do arquivo estão corretos.', title='Arquivo não foi encontrado')
         return
         
     if evento == 'ok':
+        #   Copiar o arquivo para um novo e passar o novo para tratar as modificações
+        novo_arq = os.path.dirname(nome_arq) + '\\' + pathlib.Path(nome_arq).stem + '_modificado.inp'  
+        shutil.copy2(nome_arq, novo_arq)  
+        wn = wntr.network.WaterNetworkModel(novo_arq)
+        
         if(wn):
-            atualiza_janela(2)  
+            atualiza_janela(2)
             return 
         else:
             sg.Popup('Não foi possível ler o Arquivo Selecionado, verifique-o e tente novamente', title='AVISO')
@@ -108,18 +115,25 @@ def processa_evento(evento, valor):
             if valor['eta'] in wn.tank_name_list and (valor['trecho'] in wn.pipe_name_list or valor['trecho'] == 0):
                 modeloParras.info_adicional(valor['tubulacao'], valor['D'], valor['td'], valor['u'], valor['ca'], valor['alfaMax'], 
                                             valor['deltaMax'], valor['gamaMax'], valor['betaMax'], valor['eta'], valor['trecho'])        
-                executa_modelo(nome_arq)
+                executa_modelo()
             else:
                 sg.Popup('Verique se os valores foram inseridos de forma correta!')
                 return
-    if evento == 'download':
-        print('evento para baixar arquivo modificado')
+            
+    if evento == 'download':        
+        if os.path.exists(novo_arq):
+            pathlib.Path(novo_arq).touch()
+            sg.Popup("Arquivo foi salvo com sucesso!")
+            janela.close()
+            
+        else:
+            sg.Popup("Diretório não existe! Verifique o diretório do arquivo informado")
     
-def executa_modelo(nome_arq):
+def executa_modelo():
     #   Faz a leitura do arquivo e das informações da rede e obtem a programação das bombas
-    if(modeloParras.leitura_arquivo(nome_arq)):
+    if(modeloParras.leitura_arquivo(novo_arq)):
         atualiza_janela(3)
-        # simulacao.simula_arq(nome_arq)
+        # simulacao.simula_arq(novo_arq)
     else:
         sg.Popup("Não foi possível encontrar uma solução viável para a rede inserida")
         
@@ -132,8 +146,6 @@ def atualiza_janela(jan):
         janela['sair'].update(visible = False)
              
     if jan == 2:
-#       janela['busca'].update(visible = False) 
-        #hide_row()
         janela['info'].update(visible = True) 
         janela['rede'].update(visible = True)
         janela['executar'].update(visible = True)
