@@ -3,4 +3,3 @@ import interface
 
 #   Abertura da janela
 interface.carrega_janela()
-

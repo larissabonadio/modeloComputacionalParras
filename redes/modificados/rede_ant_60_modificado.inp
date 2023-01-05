@@ -1,5 +1,5 @@
 [TITLE]
-TUBULACAO NOVA E RENDIMENTO 60
+TUBULACAO ANTIGA E RENDIMENTO 60
 
 [JUNCTIONS]
 ;ID              	Elev        	Demand      	Pattern         
@@ -24,15 +24,15 @@ TUBULACAO NOVA E RENDIMENTO 60
 
 [PIPES]
 ;ID              	Node1           	Node2           	Length      	Diameter    	Roughness   	MinorLoss   	Status
- 7               	4               	6               	200         	250         	0.019       	0           	Open  	;
- 8               	5               	7               	200         	250         	0.019       	0           	Open  	;
- 12              	6               	9               	1000        	290         	0.019       	0           	Open  	;
- 13              	7               	9               	1000        	290         	0.019       	0           	Open  	;
- 14              	9               	10              	1000        	290         	0.019       	0           	Open  	;
- 10              	8               	7               	100         	100         	0.025       	0           	Open  	;
- 6               	2               	3               	150         	200         	0.020       	0           	Open  	;
- 15              	11              	6               	99.9        	100         	0.025       	0           	Open  	;
- 16              	7               	12              	0.1         	100         	0.025       	0           	Open  	;
+ 7               	4               	6               	200         	250         	0.048       	0           	Open  	;
+ 8               	5               	7               	200         	250         	0.048       	0           	Open  	;
+ 12              	6               	9               	1000        	290         	0.048       	0           	Open  	;
+ 13              	7               	9               	1000        	290         	0.046       	0           	Open  	;
+ 14              	9               	10              	1000        	290         	0.046       	0           	Open  	;
+ 10              	8               	7               	100         	100         	0.072       	0           	Open  	;
+ 6               	2               	3               	150         	200         	0.054       	0           	Open  	;
+ 15              	11              	6               	99.9        	100         	0.072       	0           	Open  	;
+ 16              	7               	12              	0.1         	100         	0.072       	0           	Open  	;
 
 [PUMPS]
 ;ID              	Node1           	Node2           	Parameters
@@ -54,6 +54,8 @@ TUBULACAO NOVA E RENDIMENTO 60
 
 [STATUS]
 ;ID              	Status/Setting
+11    Closed	;
+9    Closed	;
 
 [PATTERNS]
 ;ID              	Multipliers
@@ -84,7 +86,6 @@ TUBULACAO NOVA E RENDIMENTO 60
 ;BOMBA: Curva da bomba de elevacao reservatorio elevado
  BombaResElevado 	150         	35          
 
-[CONTROLS]
 
 [RULES]
 
@@ -213,8 +214,22 @@ TUBULACAO NOVA E RENDIMENTO 60
  FILE           	
  OFFSET         	0.00            	0.00            
 
+[CONTROLS] 
+PUMP 1 CLOSED AT CLOCKTIME 04:00 AM
+PUMP 2 CLOSED AT CLOCKTIME 05:25 PM
+PUMP 3 CLOSED AT CLOCKTIME 05:07 PM
+PUMP 4 CLOSED AT CLOCKTIME 11:00 AM
+PUMP 5 CLOSED AT CLOCKTIME 02:00 AM
+PUMP 5 OPEN   AT CLOCKTIME 06:00 AM
+PUMP 5 CLOSED AT CLOCKTIME 07:42 AM
+PUMP 5 OPEN   AT CLOCKTIME 12:00 AM
+PUMP 5 CLOSED AT CLOCKTIME 01:30 PM
+PUMP 5 OPEN   AT CLOCKTIME 06:00 PM
+PUMP 5 CLOSED AT CLOCKTIME 07:22 PM
+PUMP 5 OPEN   AT CLOCKTIME 10:00 PM
+PUMP 5 CLOSED AT CLOCKTIME 10:40 PM
+LINK 16 CLOSED AT CLOCKTIME 01:00 AM
+PUMP 9 CLOSED AT CLOCKTIME 01:00 AM
 [END]
-
-
 
 

@@ -133,10 +133,10 @@ def executa_modelo():
     #   Faz a leitura do arquivo e das informações da rede e obtem a programação das bombas
     if(modeloParras.leitura_arquivo(novo_arq)):
         atualiza_janela(3)
-        # simulacao.simula_arq(novo_arq)
+
     else:
         sg.Popup("Não foi possível encontrar uma solução viável para a rede inserida")
-        
+        janela.close()
     
 def atualiza_janela(jan):
     if jan == 1:

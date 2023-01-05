@@ -9,43 +9,42 @@ def informacao(M, rede, t, nome_arquivo):
         return True
     else:
         return False
-    #return definir_programacao(m)
     
 def definir_programacao(m):
     programacao_completa = ''
     
     for i, p, e in m.x:
-        valor_atual = m.X[i, p, e, 0]()
+        valor_atual = round(m.X[i, p, e, 0](), 2)
         status = bool(valor_atual)
         for t in range(1, T+1):
-            if valor_atual != m.X[i, p, e, t]():
-                horario = faz_horario(t, m.X[i, p, e, t-1](), m.X[i, p, e, t]())
+            if valor_atual != round(m.X[i, p, e, t](), 2):
+                horario = faz_horario(t, round(m.X[i, p, e, t-1](), 2), round(m.X[i, p, e, t](), 2))
                 programacao_completa += grava_horario(i, horario[0], status)
                 status = not status
                 if t < T:
-                    valor_atual = m.X[i, p, e, horario[1]]()
+                    valor_atual = round(m.X[i, p, e, horario[1]](), 2)
                 
     for i, e, r in m.y:
-        valor_atual = m.Y[i, e, r, 0]()
-        status = bool(valor_atual)
-        for t in range(1, T):
-            if valor_atual != m.Y[i, e, r, t]():
-                horario = faz_horario(t, m.Y[i, e, r, t-1](), m.Y[i, e, r, t]())
-                programacao_completa += grava_horario(i, horario[0], status)
-                status = not status
-                if t < T:
-                    valor_atual = m.Y[i, e, r, horario[1]]()
-                    
-    for i, r, j in m.z:
-        valor_atual = m.Z[i, r, j, 0]()
+        valor_atual = round(m.Y[i, e, r, 0](), 2)
         status = bool(valor_atual)
         for t in range(1, T+1):
-            if valor_atual != m.Z[i, r, j, t]():
-                horario = faz_horario(t, m.Z[i, r, j, t-1](), m.Z[i, r, j, t]())
+            if valor_atual != round(m.Y[i, e, r, t](), 2):
+                horario = faz_horario(t, round(m.Y[i, e, r, t-1](), 2), round(m.Y[i, e, r, t](), 2))
                 programacao_completa += grava_horario(i, horario[0], status)
                 status = not status
                 if t < T:
-                    valor_atual = m.Z[i, r, j, horario[1]]()
+                    valor_atual = round(m.Y[i, e, r, horario[1]](), 2)
+                    
+    for i, r, j in m.z:
+        valor_atual = round(m.Z[i, r, j, 0](), 2)
+        status = bool(valor_atual)
+        for t in range(1, T+1):
+            if valor_atual != round(m.Z[i, r, j, t](), 2):
+                horario = faz_horario(t, round(m.Z[i, r, j, t-1](), 2), round(m.Z[i, r, j, t](), 2))
+                programacao_completa += grava_horario(i, horario[0], status)
+                status = not status
+                if t < T:
+                    valor_atual = round(m.Z[i, r, j, horario[1]](), 2)
                 
                 
     return programacao_completa              
@@ -153,4 +152,11 @@ def escreve_programacao(controle):
         file.write(data)  
     return True
 
-
+def apaga_programacao(nome_arquivo):
+    with open(nome_arquivo, 'r') as arq_leitura:
+        texto = arq_leitura.readlines()
+        with open(nome_arquivo, 'w') as arq_escrita:
+            for linha in texto:
+                if 'AT CLOCKTIME' not in linha:
+                    if '[CONTROLS]' not in linha:
+                        arq_escrita.write(linha)

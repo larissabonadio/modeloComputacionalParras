@@ -12,6 +12,7 @@ import numpy as np
 #import pandas as pd
 import wntr
 import programacao_bombas
+import executa_rede
 #import sys
 
 ################################################### Informações da Janela e do Arquivo INP ################################################### 
@@ -379,7 +380,7 @@ def modelo_matematico():
     #   R1 += sum(potencia_consumida(i) * I[i, b, e, t] * Nh for i, b, e in m.ns for t in range(1,T+1))
         R1 += sum(potencia_consumida(i) * Y[i, e, r, t] * Nh for i, e, r in m.y for t in range(1,T+1))
         R1 += sum(potencia_consumida(i) * Z[i, r, j, t] * Nh for i, r, j in m.z for t in range(1,T+1) if i in wn.pump_name_list)
-        return R1 <= (1.1 * D)
+        return R1 <= ((1 + u) * D)
     
     #   Cálculo do volume de água nos reservatórios
     def restricao_02(m, r, t):
@@ -526,15 +527,38 @@ def modelo_matematico():
 
 ############################################## Solução do Modelo ##############################################
 def solucao_modelo():
+    simulacao = False
+    i = 0
+    
+    #   Processo é feito até encontrar uma solução vivável OU executar i vezes (uma condição de parada caso não encontre uma solução)
+    while simulacao == False and i < 5:
+        
+        #   Determina um número máximo de iterações
+        i = i + 1       
+        
+        #   Modelo é instânciado e resolvido
+        m = modelo_matematico()    
+        opt = SolverFactory("cplex")
+        solucao = opt.solve(m)
+        #solucao.write()
+        #resultado_modelo(m)
+    
+        #   Programação da bomba é escrita no arquivo
+        programacao_bombas.informacao(m, wn, T, nome_arquivo)      
+        
+        #   Rede modificada é alterada e simulada (usando o EPANETOOLS)
+        #   Se não foi bem sucedida a estrutura da rede é modificada e uma nova programação deve ser feita
+        simulacao = executa_rede.acessa_arquivo(nome_arquivo) 
+        
+        #   Se a simulação não foi bem sucedida a programação é apagada
+        if simulacao == False:
+            programacao_bombas.apaga_programacao(nome_arquivo) 
+    
+    return simulacao
 
-    m = modelo_matematico()    
-    #opt = SolverFactory("cbc", executable='C:\\Users\\laris\\Cbc\\cbc.exe')
-    opt = SolverFactory("cplex")
-    #opt = SolverFactory("gurobi")
-    results = opt.solve(m)
-    #results = opt.solve(m, tee=True)
-    ''' Testes para ver resultado do modelo 
-    results.write()
+#   Função para mostrar os valores das variáveis do modelo
+def resultado_modelo(m):
+#   Verificar variáveis do modelo
     m.Phi.pprint()
     m.display()
     m.Phi.display()
@@ -546,17 +570,10 @@ def solucao_modelo():
     m.Beta.pprint()
     m.Anc.pprint()
     m.Bne.pprint()
-    m.Cnt.pprint()
-    ''' 
-    # print(programacao_bombas.informacao(m, wn, T, nome_arquivo))
-
-    if(programacao_bombas.informacao(m, wn, T, nome_arquivo)):
-        return True
-    else:
-        return False
     
-#  TESTES LOCAIS NO FONTE
-#       tubulação, demanda, td, ultrapassagem, ca, Amax, Dmax, Gmax, Bmax, link
-
-#info_adicional(0, '82726', '5.12', '0', '2.0', '2', '5', '5', '5', '3', '16')
-#leitura_arquivo('rede.inp')
+'''
+#  TESTE LOCAL NO FONTE
+#      tubulação, demanda, td, ultrapassagem, ca, Amax, Dmax, Gmax, Bmax, link
+info_adicional(0, '82726', '5.12', '0', '2.0', '2', '5', '5', '5', '3', '16')
+leitura_arquivo('rede_nova_60.inp')
+'''
