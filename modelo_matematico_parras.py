@@ -1,9 +1,7 @@
-# Italação das bibliotecas a partir do terminal do VSCode
+# Instalação das bibliotecas a partir do terminal do VSCode
 # pip Install pyomo
-# pip Install pandas
 # pip Install numpy
 # pip Install wntr
-# pip Install mip
 
 # Bibliotecas 
 import pyomo.environ as pyo
@@ -16,12 +14,13 @@ import executa_rede
 #import sys
 
 ################################################### Informações da Janela e do Arquivo INP ################################################### 
-def info_adicional(tubulacao, demanda, taxa_dem, ultrapassagem, custo_acionamento, aMax, dMax, gMax, bMax, eta, trecho): 
+def info_adicional(tubulacao, demanda, taxa_dem, ultrapassagem, custo_acionamento, aMax, dMax, gMax, bMax, eta, trecho, itMax, pCusto): 
 
     global tipo_tubulacao, D, td, u, ca
     global alfaMax, deltaMax, gamaMax, betaMax
     global lista_eta, trecho_transf
-    
+    global iMax, padraoCusto
+
     lista_eta = []
     
     if tubulacao == False:
@@ -39,7 +38,9 @@ def info_adicional(tubulacao, demanda, taxa_dem, ultrapassagem, custo_acionament
     betaMax  = int(bMax)
     trecho_transf = trecho
     lista_eta.append(str(eta))
-    
+    iMax = int(itMax)
+    padraoCusto = str(pCusto)
+
 #    print(tipo_tubulacao, D, td, u, ca, alfaMax, deltaMax, gamaMax, betaMax, lista_eta)
 
 def leitura_arquivo(nome_arq):    
@@ -245,7 +246,7 @@ def demanda_reservatorio (id_reservatorio, t):
 
 #   Função que retorna o custo (em reais) do kW no período t
 def custo_kW(t):
-    return round(wn.get_pattern('PrecokWh')[t-1], 2)
+    return round(wn.get_pattern(padraoCusto)[t-1], 2)
 
 #   Função que retorna o volume do reservatório
 def base_reservatorio(id_reservatorio):
@@ -531,7 +532,7 @@ def solucao_modelo():
     i = 0
     
     #   Processo é feito até encontrar uma solução vivável OU executar i vezes (uma condição de parada caso não encontre uma solução)
-    while simulacao == False and i < 5:
+    while simulacao == False and i < iMax:
         
         #   Determina um número máximo de iterações
         i = i + 1       
@@ -559,7 +560,6 @@ def solucao_modelo():
 #   Função para mostrar os valores das variáveis do modelo
 def resultado_modelo(m):
 #   Verificar variáveis do modelo
-    m.Phi.pprint()
     m.display()
     m.Phi.display()
     m.X.pprint()
@@ -570,10 +570,9 @@ def resultado_modelo(m):
     m.Beta.pprint()
     m.Anc.pprint()
     m.Bne.pprint()
-    
 '''
 #  TESTE LOCAL NO FONTE
-#      tubulação, demanda, td, ultrapassagem, ca, Amax, Dmax, Gmax, Bmax, link
-info_adicional(0, '82726', '5.12', '0', '2.0', '2', '5', '5', '5', '3', '16')
+#      tubulação, demanda, taxa bomba, ultrapassagem, ca, Amax, Dmax, Gmax, Bmax, link
+info_adicional(0, '8276', '5.12', '0', '2.0', '2', '5', '5', '5', '3', '16', 5)
 leitura_arquivo('rede_nova_60.inp')
 '''

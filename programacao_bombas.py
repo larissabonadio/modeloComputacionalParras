@@ -45,8 +45,7 @@ def definir_programacao(m):
                 status = not status
                 if t < T:
                     valor_atual = round(m.Z[i, r, j, horario[1]](), 2)
-                
-                
+          
     return programacao_completa              
     
 def faz_horario(t, anterior, atual):
